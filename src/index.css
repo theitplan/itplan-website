@@ -2,20 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Fonts ─────────────────────────────────────────────────── */
+:root {
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+/* ── Page-load fade ─────────────────────────────────────────── */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-16px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.7s ease-out;
+  animation: fadeIn 0.6s ease-out both;
 }
 
 .animate-slide-down {
-  animation: slideDown 0.4s ease-out;
+  animation: slideDown 0.35s ease-out both;
+}
+
+/* ── Staggered section reveals ──────────────────────────────── */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.12s; }
+.stagger-3 { animation-delay: 0.20s; }
+.stagger-4 { animation-delay: 0.28s; }
+
+/* ── Scrolling marquee ──────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 36s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Section divider ────────────────────────────────────────── */
+.section-rule {
+  border: none;
+  border-top: 1px solid rgb(51 65 85);
+  margin: 0.75rem 0 2.5rem;
+}
+
+/* ── Circle list bullets (matching live site) ───────────────── */
+.circle-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.circle-list li {
+  padding: 0.2rem 0;
+  color: rgb(148 163 184);
+}
+
+.circle-list li::before {
+  content: '○  ';
+  color: rgb(100 116 139);
+}
+
+/* ── Logo cells ─────────────────────────────────────────────── */
+.logo-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  height: 3rem;
+  width: 8rem;
+  flex-shrink: 0;
+}
+
+.logo-cell img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.logo-cell img:hover {
+  opacity: 0.9;
 }
